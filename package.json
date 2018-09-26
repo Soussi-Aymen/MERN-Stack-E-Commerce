@@ -1,0 +1,36 @@
+{
+  "name": "mern-stack-project",
+  "version": "1.0.0",
+  "description": "An E-Commerce Project using MERN Stack",
+  "main": "server.js",
+  "scripts": {
+    "client-install": "npm install --prefix client",
+    "start": "node server.js",
+    "server": "nodemon server.js",
+    "client": "npm start --prefix client",
+    "dev": "concurrently  \"npm run server\" \"npm run client\""
+  },
+  "author": "Aymen Soussi",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "ejs": "^2.6.1",
+    "express": "^4.16.3",
+    "mongoose": "^5.2.17",
+    "passport-google-oauth20": "^1.0.0",
+    "bcryptjs": "*",
+    "connect-flash": "*",
+    "cookie-parser": "^1.4.1",
+    "express-handlebars": "*",
+    "express-messages": "*",
+    "express-session": "*",
+    "express-validator": "*",
+    "mongodb": "*",
+    "passport": "*",
+    "passport-http": "*",
+    "passport-local": "*",
+    "concurrently": "^4.0.1",
+    "helmet": "^3.13.0",
+    "joi": "^13.6.0"
+  }
+}
