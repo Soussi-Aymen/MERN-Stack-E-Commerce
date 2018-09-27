@@ -22,7 +22,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(helmet());
 
 app.use("/products", products);
-app.use("/payment-successful", payment);
+app.use("/payments", payment);
 
 const port = process.env.PORT || 3001;
 app.listen(port, () => console.log(`Listening on port ${port} ...`));

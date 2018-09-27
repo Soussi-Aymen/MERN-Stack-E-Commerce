@@ -2,38 +2,8 @@ import React, { Component } from "react";
 import TableLine from "./TableLine";
 import Modal from "./Modal";
 import axios from "axios";
-/*const productlist = [
-  {
-    id: 1,
-    price: 1569,
-    title: "ASUS",
-    image:
-      "https://tn.jumia.is/o9LqJdffmQL3AXNGv8mH1gjnk8Q=/fit-in/220x220/filters:fill(white):sharpen(1,0,false):quality(100)/product/99/438/1.jpg",
+import { Redirect } from "react-router-dom";
 
-    desc: "ASUS PC Portable X541SA-XX252 - Rouge - Garantie 1 An",
-    category: "pcs",
-    reference: "jsj562",
-    instock: 23,
-    bought: 2,
-    total: 25,
-    dateofadd: "25 / 07 / 2018"
-  },
-  {
-    id: 2,
-    image:
-      "https://tn.jumia.is/5gSGYNUenbaqi__OKrUNihZCd_I=/fit-in/220x220/filters:fill(white):sharpen(1,0,false):quality(100)/product/64/352/1.jpg",
-    title: "PlayStation 4 pro",
-    desc: "PlayStation 4 pro - 1 TB + FIFA 2018 - Noir",
-    price: 1799,
-    category: "games",
-
-    reference: "sfgz59",
-    instock: 10,
-    bought: 20,
-    total: 30,
-    dateofadd: "22 / 06 / 2018"
-  }
-];*/
 class Products extends Component {
   constructor(props) {
     super(props);
@@ -49,33 +19,60 @@ class Products extends Component {
       .catch(err => console.log(err));
   }
 
-  handleRemove = id => {
-    this.setState({
-      productlist: this.state.productlist.map(el => {
-        if (el.id === id) {
-          if (el.total === el.bought) {
-            return el;
-          } else {
-            el.instock--;
-            el.total--;
-            return el;
-          }
-        }
-        return el;
+  handleUpdate = () => {
+    axios
+      .get("/products")
+      .then(res => {
+        this.setState({ productlist: Array.from(res.data), isLoading: false });
+        console.log(this.state);
       })
-    });
+      .catch(err => console.log(err));
   };
-  handleAdd = id => {
-    this.setState({
-      productlist: this.state.productlist.map(el => {
-        if (el.id === id) {
-          el.instock++;
-          el.total++;
-          return el;
+  handleRemove = id => {
+    this.state.productlist.map(el => {
+      if (el._id === id) {
+        if (el.total !== el.bought) {
+          axios
+            .put(`/products/modify_product/${id}`, {
+              instock: el.instock - 1,
+              total: el.total - 1
+            })
+            .then(res => console.log(res.data))
+            .catch(err => console.log(err));
         }
-        return el;
-      })
+      }
     });
+    axios
+      .get("/products")
+      .then(res => {
+        this.setState({ productlist: Array.from(res.data), isLoading: false });
+        console.log(this.state);
+      })
+      .catch(err => console.log(err));
+
+    <Redirect to="/home" />;
+  };
+
+  handleAdd = id => {
+    this.state.productlist.map(el => {
+      if (el._id === id) {
+        axios
+          .put(`products/modify_product/${id}`, {
+            instock: el.instock + 1,
+            total: el.total + 1
+          })
+          .then(res => console.log(res.data))
+          .catch(err => console.log(err));
+      }
+    });
+    <Redirect to="/home" />;
+    axios
+      .get("/products")
+      .then(res => {
+        this.setState({ productlist: Array.from(res.data), isLoading: false });
+        console.log(this.state);
+      })
+      .catch(err => console.log(err));
   };
 
   render() {
@@ -153,7 +150,7 @@ class Products extends Component {
         >
           Add new product
         </button>
-        <Modal history={this.props.history} />
+        <Modal handleUpdate={this.handleUpdate} history={this.props.history} />
       </div>
     );
   }

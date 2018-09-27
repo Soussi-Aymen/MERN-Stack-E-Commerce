@@ -1,15 +1,14 @@
 import React, { Component } from "react";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
-import Chart from "./Chart";
-
+import Products from "./Products";
 class Home extends Component {
   state = {};
   render() {
     return (
       <div>
         <Navbar />
-        <Chart />
+        <Products history={this.props.history} />
         <Footer />
       </div>
     );

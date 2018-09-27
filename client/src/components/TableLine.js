@@ -11,11 +11,11 @@ class TableLine extends Component {
         <td>{this.props.product.instock}</td>
         <td>{this.props.product.bought}</td>
         <td>{this.props.product.total}</td>
-        <td>{this.props.product.dateofadd}</td>
+        <td>{this.props.product.date}</td>
         <td>
           <button
             className="btn btn-outline-success dc-panel-remove btn-sm"
-            onClick={() => this.props.handleAdd(this.props.product.id)}
+            onClick={() => this.props.handleAdd(this.props.product._id)}
           >
             +
           </button>
@@ -23,7 +23,7 @@ class TableLine extends Component {
         <td>
           <button
             className="btn btn-outline-danger dc-panel-remove btn-sm"
-            onClick={() => this.props.handleRemove(this.props.product.id)}
+            onClick={() => this.props.handleRemove(this.props.product._id)}
           >
             -
           </button>

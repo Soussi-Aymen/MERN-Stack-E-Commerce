@@ -6,7 +6,7 @@ class Navbar extends Component {
   render() {
     return (
       <nav className="navbar navbar-expand-lg navbar-dark  indigo lighten-1">
-        <a className="navbar-brand" href="#">
+        <a className="navbar-brand" href="home">
           Navbar
         </a>
 
@@ -31,21 +31,14 @@ class Navbar extends Component {
             </li>
 
             <li className="nav-item">
-              <a className="nav-link" href="#" />
+              <NavLink className="nav-link" to="/products">
+                Products
+              </NavLink>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="#">
-                List of products
-              </a>
-            </li>
-
-            <li className="nav-item">
-              <a className="nav-link" href="#" />
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" href="#">
+              <NavLink className="nav-link" to="/factures">
                 Factures
-              </a>
+              </NavLink>
             </li>
           </ul>
 

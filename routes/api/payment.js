@@ -4,30 +4,21 @@ const Joi = require("joi");
 
 const router = express.Router();
 
-router.post("/", (req, res) => {
-  const { error } = validate(req.body);
-  if (error) {
-    return res.status(404).send(error.details[0].message);
-  }
-
-  let newPayment = {
-    name: req.body.name,
-    email: req.body.email,
-    adress: req.body.adress,
-    cardHolder: req.body.cardHolder,
-    cvc: req.body.cvc,
-    expMonth: req.body.expMonth,
-    expYear: req.body.expYear,
-    paymentTotal: req.body.paymentTotal
-  };
-
-  const payment = new Payment(newPayment);
-  payment.save().then(p => res.json(p));
-
-  res.send(newPayment);
+router.get("/", (req, res) => {
+  Payment.find().then(item => res.json(item));
 });
 
-function validate(payment) {
+router.post("/add_payment", (req, res) => {
+  /*const { error } = validate(req.body);
+  if (error) {
+    return res.status(404).send(error.details[0].message);
+  }*/
+  let newPayment = { ...req.body };
+  const payment = new Payment(newPayment);
+  payment.save().then(p => res.json(p));
+});
+
+/*function validate(payment) {
   const schema = {
     name: Joi.string()
       .min(3)
@@ -46,9 +37,10 @@ function validate(payment) {
     expYear: Joi.number()
       .min(2019)
       .max(2029),
-    paymentTotal: Joi.number()
+    paymentTotal: Joi.number(),
+    telephone: Joi.number()
   };
   return Joi.validate(payment, schema);
 }
-
+*/
 module.exports = router;

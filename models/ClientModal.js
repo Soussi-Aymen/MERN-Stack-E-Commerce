@@ -1,14 +1,16 @@
 const mongoose = require("mongoose");
 
 const paymentSchema = new mongoose.Schema({
-  name: String,
-  adress: String,
+  name: { type: String, required: true },
+  adress: { type: String, required: true },
   cardHolder: String,
   cvc: Number,
-  email: String,
+  email: { type: String, required: true },
   expMonth: Number,
   expYear: Number,
-  paymentTotal: Number
+  telephone: { type: Number, required: true },
+  paymentTotal: { type: Number, required: true },
+  date: { type: Date, default: Date.now }
 });
 
 const Payment = mongoose.model("paymentClient", paymentSchema);

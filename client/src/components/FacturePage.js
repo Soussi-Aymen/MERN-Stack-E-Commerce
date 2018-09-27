@@ -1,19 +1,18 @@
 import React, { Component } from "react";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
-import Chart from "./Chart";
-
-class Home extends Component {
+import Factures from "./Factures";
+class FacturePage extends Component {
   state = {};
   render() {
     return (
       <div>
         <Navbar />
-        <Chart />
+        <Factures history={this.props.history} />
         <Footer />
       </div>
     );
   }
 }
 
-export default Home;
+export default FacturePage;
