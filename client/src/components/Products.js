@@ -128,6 +128,10 @@ class Products extends Component {
                   Remove
                   <i className="fa fa-sort float-right" aria-hidden="true" />
                 </th>
+                <th className="th-sm">
+                  Edit
+                  <i className="fa fa-sort float-right" aria-hidden="true" />
+                </th>
               </tr>
             </thead>
             <tbody>
@@ -137,6 +141,7 @@ class Products extends Component {
                   product={el}
                   handleRemove={this.handleRemove}
                   handleAdd={this.handleAdd}
+                  handleUpdate={this.handleUpdate}
                 />
               ))}
             </tbody>

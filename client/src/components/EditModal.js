@@ -5,50 +5,46 @@ class Modal extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      price: 0,
-      title: "",
-      reference: "",
-      image: "",
-      category: "",
-      total: 0,
-      instock: 0,
-      desc: ""
+      price: this.props.product.price,
+      title: this.props.product.title,
+      reference: this.props.product.reference,
+      image: this.props.product.image,
+      category: this.props.product.category,
+      total: this.props.product.total,
+      instock: this.props.product.instock,
+      desc: this.props.product.desc
     };
   }
 
   handleChange = event => {
     this.setState({ instock: this.state.total });
     this.setState({ [event.target.name]: event.target.value });
+    console.log(event.target.value);
   };
 
   handleNew = () => {
     axios
-      .post("/products/add_product", { ...this.state })
+      .put(`/products/modify_product/${this.props.product._id}`, {
+        image: this.state.image,
+        total: this.state.total,
+        instock: this.state.instock,
+        desc: this.state.desc,
+        price: this.state.price
+      })
       .then(res => {
         console.log(res.data);
       })
       .catch(err => console.log(err));
 
-    this.setState({
-      title: "",
-      price: 0,
-      reference: "",
-      image: "",
-      category: "",
-      total: 0,
-      instock: 0,
-      desc: ""
-    });
     this.props.handleUpdate();
 
     //<Redirect to="/home" />;
-    this.props.history.push("/products");
   };
   render() {
     return (
       <div
         className="modal fade"
-        id="centralModal"
+        id={`central${this.props.product._id}`}
         tabIndex="-1"
         role="dialog"
         aria-labelledby="myModalLabel"
@@ -58,7 +54,7 @@ class Modal extends Component {
           <div className="modal-content">
             <div className="modal-header">
               <h4 className="modal-title w-100" id="myModalLabel">
-                Add New product
+                Edit product
               </h4>
               <button
                 type="button"
@@ -80,6 +76,7 @@ class Modal extends Component {
                     placeholder="Product Name"
                     value={this.state.title}
                     onChange={this.handleChange}
+                    readOnly={true}
                   />
                 </div>
               </div>
@@ -94,6 +91,7 @@ class Modal extends Component {
                     placeholder="Product reference"
                     value={this.state.reference}
                     onChange={this.handleChange}
+                    readOnly={true}
                   />
                 </div>
               </div>
@@ -132,23 +130,6 @@ class Modal extends Component {
                 onChange={this.handleChange}
               />
 
-              <div className="form-row mb-4">
-                <div className="col">
-                  <label>Category: </label>
-                  <select
-                    className="mdb-select md-form colorful-select dropdown-primary"
-                    name="category"
-                    value={this.state.category}
-                    onChange={this.handleChange}
-                  >
-                    <option value="1">PC's</option>
-                    <option value="2">Games</option>
-                    <option value="3">Phones</option>
-                    <option value="4">Clothes</option>
-                    <option value="5">Houses</option>
-                  </select>
-                </div>
-              </div>
               <div className="md-form">
                 <textarea
                   type="text"
@@ -176,7 +157,7 @@ class Modal extends Component {
                 onClick={this.handleNew}
                 data-dismiss="modal"
               >
-                Add
+                Update
               </button>
             </div>
           </div>

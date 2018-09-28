@@ -125,12 +125,17 @@ class Modal extends Component {
                 </div>
               </div>
 
-              <input
-                type="text"
-                name="image"
-                value={this.state.image}
-                onChange={this.handleChange}
-              />
+              <div className="form-row mb-4">
+                <div className="col">
+                  <label>Image</label>
+                  <input
+                    type="text"
+                    name="image"
+                    value={this.state.image}
+                    onChange={this.handleChange}
+                  />
+                </div>
+              </div>
 
               <div className="form-row mb-4">
                 <div className="col">

@@ -9,6 +9,7 @@ const products = require("./routes/api/products");
 const payment = require("./routes/api/payment");
 
 mongoose.connect(dataBase.DB).then(
+  //mongoose.connect(dataBase.mongoURI).then(
   () => {
     console.log("Connected to MongoDB...");
   },

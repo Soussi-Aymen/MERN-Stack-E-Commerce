@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import EditModal from "./EditModal";
 class TableLine extends Component {
   state = {};
   render() {
@@ -7,7 +8,7 @@ class TableLine extends Component {
         <td>{this.props.product.title}</td>
         <td>{this.props.product.reference}</td>
         <td>{this.props.product.category}</td>
-        <td>{this.props.product.price}</td>
+        <td>{this.props.product.price} DT</td>
         <td>{this.props.product.instock}</td>
         <td>{this.props.product.bought}</td>
         <td>{this.props.product.total}</td>
@@ -28,6 +29,22 @@ class TableLine extends Component {
             -
           </button>
         </td>
+        <td>
+          <button
+            className="btn btn-outline-success dc-panel-remove btn-sm"
+            onClick={() => this.props.handleAdd(this.props.product._id)}
+            data-toggle="modal"
+            data-target={`#central${this.props.product._id}`}
+          >
+            Edit
+          </button>
+        </td>
+        <EditModal
+          key={this.props._id}
+          handleUpdate={this.props.handleUpdate}
+          history={this.props.history}
+          product={this.props.product}
+        />
       </tr>
     );
   }

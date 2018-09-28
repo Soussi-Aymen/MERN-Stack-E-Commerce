@@ -12,9 +12,9 @@ class App extends Component {
           <Route exact path="/Products" component={ProductPage} />
 
           <Route exact path="/home" component={Home} />
-          <Link to="/home">
+          {/* <Link to="/home">
             <button className="btn btn-success"> Access to Home</button>
-          </Link>
+    </Link>*/}
         </div>
       </Router>
     );
