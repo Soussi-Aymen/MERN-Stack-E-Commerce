@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Link, Redirect } from "react-router-dom";
 import axios from "axios";
 class Modal extends Component {
   constructor(props) {
@@ -8,7 +7,7 @@ class Modal extends Component {
       price: 0,
       title: "",
       reference: "",
-      image: "",
+      image: "https://mdbootstrap.com/img/Photos/Others/placeholder.jpg",
       category: "",
       total: 0,
       instock: 0,
@@ -19,6 +18,20 @@ class Modal extends Component {
   handleChange = event => {
     this.setState({ instock: this.state.total });
     this.setState({ [event.target.name]: event.target.value });
+  };
+  handleFile = event => {
+    /* let file = event.target.files[0];
+    let reader = new FileReader();
+    this.setState({ image: reader.readAsDataURL(file) });
+    console.log(this.state.image); */
+    if (event.target.files && event.target.files[0]) {
+      let reader = new FileReader();
+      reader.onload = e => {
+        this.setState({ image: e.target.result });
+      };
+      reader.readAsDataURL(event.target.files[0]);
+    }
+    console.log(typeof this.state.image);
   };
 
   handleNew = () => {
@@ -33,7 +46,7 @@ class Modal extends Component {
       title: "",
       price: 0,
       reference: "",
-      image: "",
+      image: "https://mdbootstrap.com/img/Photos/Others/placeholder.jpg",
       category: "",
       total: 0,
       instock: 0,
@@ -125,17 +138,26 @@ class Modal extends Component {
                 </div>
               </div>
 
-              <div className="form-row mb-4">
+              {/*<div className="form-row mb-4">
                 <div className="col">
-                  <label>Image</label>
-                  <input
-                    type="text"
-                    name="image"
-                    value={this.state.image}
-                    onChange={this.handleChange}
-                  />
+    <label>Image</label>*/}
+              <form className="md-form">
+                <div className="file-field">
+                  <div className="z-depth-1-half mb-4">
+                    <img
+                      src={this.state.image}
+                      className="img-fluid"
+                      alt="example placeholder"
+                    />
+                  </div>
+                  <div className="d-flex justify-content-center">
+                    <div className="btn btn-mdb-color btn-rounded float-left">
+                      <span>Choose file</span>
+                      <input type="file" onChange={this.handleFile} />
+                    </div>
+                  </div>
                 </div>
-              </div>
+              </form>
 
               <div className="form-row mb-4">
                 <div className="col">

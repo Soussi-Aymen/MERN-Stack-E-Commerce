@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Link, Redirect } from "react-router-dom";
 import axios from "axios";
 class Modal extends Component {
   constructor(props) {
@@ -20,6 +19,16 @@ class Modal extends Component {
     this.setState({ instock: this.state.total });
     this.setState({ [event.target.name]: event.target.value });
     console.log(event.target.value);
+  };
+  handleFile = event => {
+    if (event.target.files && event.target.files[0]) {
+      let reader = new FileReader();
+      reader.onload = e => {
+        this.setState({ image: e.target.result });
+      };
+      reader.readAsDataURL(event.target.files[0]);
+    }
+    console.log(typeof this.state.image);
   };
 
   handleNew = () => {
@@ -123,12 +132,23 @@ class Modal extends Component {
                 </div>
               </div>
 
-              <input
-                type="text"
-                name="image"
-                value={this.state.image}
-                onChange={this.handleChange}
-              />
+              <form className="md-form">
+                <div className="file-field">
+                  <div className="z-depth-1-half mb-4">
+                    <img
+                      src={this.state.image}
+                      className="img-fluid"
+                      alt="example placeholder"
+                    />
+                  </div>
+                  <div className="d-flex justify-content-center">
+                    <div className="btn btn-mdb-color btn-rounded float-left">
+                      <span>Choose file</span>
+                      <input type="file" onChange={this.handleFile} />
+                    </div>
+                  </div>
+                </div>
+              </form>
 
               <div className="md-form">
                 <textarea
